@@ -43,6 +43,17 @@
 
 @global appkit_tag_dom_elements
 
+function countMyself() {
+    // Check to see if the counter has been initialized
+    if ( typeof countMyself.counter == 'undefined' ) {
+        // It has not... perform the initilization
+        countMyself.counter = 0;
+    }
+
+    // Do something stupid to indicate the value
+    return (++countMyself.counter).toString();
+}
+
 /*
     @global
     @group CPViewAutoresizingMasks
@@ -316,6 +327,8 @@ var CPViewFlags                     = { },
 
 #if PLATFORM(DOM)
         _DOMElement = DOMElementPrototype.cloneNode(false);
+        _DOMElement.className = [[self class] description];
+        _DOMElement.id = countMyself();
 
         CPDOMDisplayServerSetStyleLeftTop(_DOMElement, NULL, CGRectGetMinX(aFrame), CGRectGetMinY(aFrame));
         CPDOMDisplayServerSetStyleSize(_DOMElement, width, height);
